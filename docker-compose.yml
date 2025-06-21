@@ -1,0 +1,30 @@
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: siroko_php
+    volumes:
+      - .:/var/www
+    working_dir: /var/www
+    depends_on:
+      - db
+    ports:
+      - "9000:9000"
+
+  db:
+    image: postgres:14
+    container_name: siroko_postgres
+    environment:
+      POSTGRES_USER: siroko
+      POSTGRES_PASSWORD: siroko
+      POSTGRES_DB: siroko_cart
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    container_name: siroko_adminer
+    restart: always
+    ports:
+      - "8081:8080"
