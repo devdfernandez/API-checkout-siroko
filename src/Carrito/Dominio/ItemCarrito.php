@@ -19,6 +19,15 @@ class ItemCarrito
         return $this->cantidad;
     }
 
+    public function actualizarCantidad(int $cantidad): void
+    {
+        if ($cantidad < 1) {
+            throw new \InvalidArgumentException('Cantidad inválida.');
+        }
+
+        $this->cantidad = $cantidad;
+    }
+
     public function precio(): float
     {
         return $this->precio;
