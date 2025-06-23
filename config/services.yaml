@@ -16,10 +16,18 @@ services:
     App\:
         resource: '../src/'
 
-    # Registro explícito del repositorio Doctrine para el Carrito
     Carrito\Dominio\RepositorioCarrito: '@App\Carrito\Infraestructura\Repositorio\RepositorioCarritoDoctrine'
 
     App\Carrito\Infraestructura\Repositorio\RepositorioCarritoDoctrine:
         public: true
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
+    
+    App\Pedido\Dominio\RepositorioPedido: '@App\Pedido\Infraestructura\Repositorio\RepositorioPedidoDoctrine'
+
+    App\Pedido\Infraestructura\Repositorio\RepositorioPedidoDoctrine:
+        public: true
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+
