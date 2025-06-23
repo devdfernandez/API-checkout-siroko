@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 class ActualizarProductoHandlerTest extends TestCase
 {
-    public function testActualizarCantidadExistente(): void
+    public function testActualizarProductoExistente(): void
     {
         $carritoId = new CarritoId('carrito-1');
         $productoId = new ProductoId('producto-1');
@@ -38,7 +38,7 @@ class ActualizarProductoHandlerTest extends TestCase
         $this->assertEquals(5, $carrito->items()[0]->cantidad());
     }
 
-    public function testActualizarCantidadSinCarrito(): void
+    public function testActualizarProductoSinCarrito(): void
     {
         /** @var RepositorioCarrito&\PHPUnit\Framework\MockObject\MockObject $repositorio */
         $repositorio = $this->createMock(RepositorioCarrito::class);
@@ -58,7 +58,7 @@ class ActualizarProductoHandlerTest extends TestCase
         $handler->__invoke($command);
     }
 
-    public function testActualizarCantidadSinProducto(): void
+    public function testActualizarProductoSinProducto(): void
     {
         $carritoId = new CarritoId('carrito-2');
         $otroProducto = new ProductoId('otro-producto');

@@ -1,6 +1,8 @@
 <?php 
 namespace App\Carrito\Dominio;
 
+use Ramsey\Uuid\Uuid;
+
 class ProductoId
 {
     private string $valor;
