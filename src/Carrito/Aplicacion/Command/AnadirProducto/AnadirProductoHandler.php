@@ -23,10 +23,9 @@ class AnadirProductoHandler
             throw new \RuntimeException('Carrito no encontrado');
         }
 
-        // Asumimos que tienes el precio disponible en el comando, si no, tendrás que obtenerlo de otra forma
         $productoId = new ProductoId($command->productoId);
         $cantidad = $command->cantidad;
-        $precio = $command->precio ?? 0; // Cambia esto si tienes otra forma de obtener el precio
+        $precio = $command->precio ?? 0;
 
         $item = new ItemCarrito($productoId, $cantidad, $precio);
 
