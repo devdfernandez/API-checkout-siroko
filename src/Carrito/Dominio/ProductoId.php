@@ -7,6 +7,9 @@ class ProductoId
 
     public function __construct(string $valor)
     {
+        if (empty($valor))
+            throw new \InvalidArgumentException('ProductoId no puede ser vacío.');
+        
         $this->valor = $valor;
     }
 

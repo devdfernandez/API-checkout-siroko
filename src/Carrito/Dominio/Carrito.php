@@ -6,7 +6,10 @@ class Carrito
 {
     private array $items = [];
 
-    public function __construct(private CarritoId $id) {}
+    public function __construct(private CarritoId $id, array $items = [])
+    {
+        $this->items = $items;
+    }
 
     public function id(): CarritoId
     {
@@ -20,19 +23,33 @@ class Carrito
 
     public function anadirItem(ItemCarrito $item): void
     {
+        if ($item->cantidad() <= 0)
+            throw new \InvalidArgumentException('La cantidad debe ser mayor que cero.');
+
         foreach ($this->items as $key => $existente) {
             if ($existente->productoId()->valor() === $item->productoId()->valor()) {
-                $this->items[$key] = new ItemCarrito(
-                    $item->productoId(),
-                    $existente->cantidad() + $item->cantidad(),
-                    $item->precio()
-                );
+                $this->actualizarItem($key, $item, $existente);
                 return;
             }
         }
 
         $this->items[] = $item;
     }
+
+    private function actualizarItem(int $key, ItemCarrito $item, ItemCarrito $existente): void
+    {
+        $this->items[$key] = new ItemCarrito(
+            $item->productoId(),
+            $existente->cantidad() + $item->cantidad(),
+            $item->precio()
+        );
+    }
+
+    public function eliminarItem(ProductoId $productoId): void
+    {
+        $this->items = array_filter($this->items, fn($item) => $item->productoId()->valor() !== $productoId->valor());
+    }
+
 
     public function total(): float
     {

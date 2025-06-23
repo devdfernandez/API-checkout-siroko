@@ -2,11 +2,11 @@
 
 namespace App\Carrito\Dominio;
 
-interface RepositorioCarritoInterface
+interface RepositorioCarrito
 {
     public function guardar(Carrito $carrito): void;
 
-    public function buscar(CarritoId $id): ?Carrito;
+    public function buscarPorId(CarritoId $id): ?Carrito;
 }
 
 ?>

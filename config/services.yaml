@@ -1,4 +1,4 @@
-# This file is the entry point to configure your own services.
+# This file is the entry point to configure your own services. 
 # Files in the packages/ subdirectory configure your dependencies.
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -16,5 +16,10 @@ services:
     App\:
         resource: '../src/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Registro explícito del repositorio Doctrine para el Carrito
+    Carrito\Dominio\RepositorioCarrito: '@App\Carrito\Infraestructura\Repositorio\RepositorioCarritoDoctrine'
+
+    App\Carrito\Infraestructura\Repositorio\RepositorioCarritoDoctrine:
+        public: true
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
