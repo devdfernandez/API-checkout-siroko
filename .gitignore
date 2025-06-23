@@ -18,3 +18,5 @@ node_modules/
 /phpunit.xml
 /.phpunit.cache/
 ###< phpunit/phpunit ###
+migrations/Version20250622144853.php
+migrations/Version20250622115734.php

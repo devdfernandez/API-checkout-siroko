@@ -22,7 +22,7 @@ doctrine:
                 is_bundle: false
                 type: attribute
                 dir: '%kernel.project_dir%/src/Carrito/Infraestructura/Persistencia/Doctrine'
-                prefix: 'Carrito\Infraestructura\Persistencia\Doctrine'
+                prefix: 'App\Carrito\Infraestructura\Persistencia\Doctrine'
                 alias: Carrito
         controller_resolver:
             auto_mapping: false
@@ -31,7 +31,7 @@ when@test:
     doctrine:
         dbal:
             # "TEST_TOKEN" is typically set by ParaTest
-            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+            # dbname_suffix: '_test%env(default::TEST_TOKEN)%'
 
 when@prod:
     doctrine:
