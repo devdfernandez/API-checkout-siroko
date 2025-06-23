@@ -9,7 +9,7 @@ use App\Pedido\Dominio\PedidoId;
 use App\Pedido\Dominio\LineaPedido;
 use App\Pedido\Dominio\RepositorioPedido;
 
-final class ProcesarCheckoutHandler
+class ProcesarCheckoutHandler implements ProcesarCheckoutHandlerInterface
 {
     public function __construct(
         private RepositorioCarrito $repositorioCarrito,
