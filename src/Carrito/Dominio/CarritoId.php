@@ -16,6 +16,11 @@ class CarritoId
     {
         return $this->valor;
     }
+
+    public function equals(CarritoId $otro): bool
+    {
+        return $this->valor === $otro->valor;
+    }
 }
 
 ?>

@@ -20,7 +20,7 @@ class AnadirProductoHandler
         $carrito = $this->repositorioCarrito->buscarPorId(new CarritoId($command->carritoId));
 
         if (!$carrito) {
-            throw new \Exception('Carrito no encontrado');
+            throw new \RuntimeException('Carrito no encontrado');
         }
 
         // Asumimos que tienes el precio disponible en el comando, si no, tendrás que obtenerlo de otra forma
