@@ -24,6 +24,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Carrito/Infraestructura/Persistencia/Doctrine'
                 prefix: 'App\Carrito\Infraestructura\Persistencia\Doctrine'
                 alias: Carrito
+            Pedido:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Pedido/Infraestructura/Persistencia/Doctrine'
+                prefix: 'App\Pedido\Infraestructura\Persistencia\Doctrine'
+                alias: Pedido
         controller_resolver:
             auto_mapping: false
 
