@@ -63,7 +63,16 @@ class Carrito
 
     public function eliminarItem(ProductoId $productoId): void
     {
-        $this->items = array_filter($this->items, fn($item) => $item->productoId()->valor() !== $productoId->valor());
+        $original = count($this->items);
+
+        $this->items = array_filter(
+            $this->items,
+            fn($item) => !$item->productoId()->equals($productoId)
+        );
+
+        if (count($this->items) === $original) {
+            throw new \RuntimeException('Producto no encontrado en el carrito.');
+        }
     }
 
 
