@@ -45,6 +45,22 @@ class Carrito
         );
     }
 
+    public function actualizarCantidad(ProductoId $productoId, int $cantidad): void
+    {
+        if ($cantidad < 1) {
+            throw new \InvalidArgumentException('La cantidad debe ser mayor a cero.');
+        }
+
+        foreach ($this->items as $item) {
+            if ($item->productoId()->equals($productoId)) {
+                $item->actualizarCantidad($cantidad);
+                return;
+            }
+        }
+
+        throw new \RuntimeException('Producto no encontrado en el carrito.');
+    }
+
     public function eliminarItem(ProductoId $productoId): void
     {
         $this->items = array_filter($this->items, fn($item) => $item->productoId()->valor() !== $productoId->valor());
