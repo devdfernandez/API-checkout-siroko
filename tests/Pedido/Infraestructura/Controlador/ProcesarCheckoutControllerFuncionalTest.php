@@ -44,7 +44,6 @@ class ProcesarCheckoutControllerFuncionalTest extends WebTestCase
         $this->client->request('POST', "/checkout/{$uuid}");
 
         $response = $this->client->getResponse();
-        var_dump($response->getContent());
 
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode(), 'Respuesta HTTP incorrecta');
 

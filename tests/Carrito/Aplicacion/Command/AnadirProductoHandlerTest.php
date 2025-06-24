@@ -28,10 +28,11 @@ class AnadirProductoHandlerTest extends TestCase
         $command = new AnadirProductoCommand(
             carritoId: $carritoId->valor(),
             productoId: $productoId->valor(),
-            cantidad: 2
+            cantidad: 2,
+            precio: 10.0
         );
 
-        $handler->handle($command);
+        $handler->__invoke($command);
 
         $this->assertCount(1, $carrito->items());
         $this->assertEquals(2, $carrito->items()[0]->cantidad());
@@ -54,9 +55,10 @@ class AnadirProductoHandlerTest extends TestCase
         $command = new AnadirProductoCommand(
             carritoId: $carritoId->valor(),
             productoId: $productoId->valor(),
-            cantidad: 1
+            cantidad: 1,
+            precio: 5.0
         );
 
-        $handler->handle($command);
+        $handler->__invoke($command);
     }
 }

@@ -28,7 +28,6 @@ class RepositorioPedidoDoctrine implements RepositorioPedido
         );
 
         $this->entityManager->persist($doctrinePedido);
-        dump($doctrinePedido->getLineas());
         $this->entityManager->flush();
     }
 
