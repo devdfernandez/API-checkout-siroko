@@ -38,7 +38,8 @@ class ProcesarCheckoutHandlerTest extends TestCase
                 $capturado = $pedido;
                 return true;
             }));
-
+        
+        /** @var GestorStock&\PHPUnit\Framework\MockObject\MockObject $gestorStock */
         $gestorStock = $this->createMock(GestorStock::class);
         $gestorStock->expects($this->exactly(2))->method('reservarStock');
 

@@ -24,8 +24,7 @@ class AnadirProductoHandler
 
 
         if (!$carrito) {
-            // TEMPORAL para debug
-            throw new \RuntimeException("Carrito no encontrado: " . $carritoId->valor());
+            throw new \RuntimeException("Carrito no encontrado");
         }
 
         $productoId = new ProductoId($command->productoId);
