@@ -1,31 +1,31 @@
-# config/services.yaml
-
 parameters:
 
 services:
     _defaults:
         autowire: true
         autoconfigure: true
+        public: false 
 
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/Kernel.php'
+            - '../src/**/Persistencia/**'
+
+    App\Carrito\Infraestructura\Controlador\:
+        resource: '../src/Carrito/Infraestructura/Controlador/'
+        tags: ['controller.service_arguments']
+
+    App\Pedido\Infraestructura\Controlador\:
+        resource: '../src/Pedido/Infraestructura/Controlador/'
+        tags: ['controller.service_arguments']
 
     Carrito\Dominio\RepositorioCarrito: '@App\Carrito\Infraestructura\Repositorio\RepositorioCarritoDoctrine'
-
     App\Carrito\Infraestructura\Repositorio\RepositorioCarritoDoctrine:
-        public: true
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
-    
-    App\Pedido\Dominio\RepositorioPedido: '@App\Pedido\Infraestructura\Repositorio\RepositorioPedidoDoctrine'
 
+    Pedido\Dominio\RepositorioPedido: '@App\Pedido\Infraestructura\Repositorio\RepositorioPedidoDoctrine'
     App\Pedido\Infraestructura\Repositorio\RepositorioPedidoDoctrine:
-        public: true
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
-
-    # 👇 Añadido explícitamente para test
-    App\Pedido\Infraestructura\Controlador\ProcesarCheckoutController:
-        public: true
-        autowire: true
-        autoconfigure: true

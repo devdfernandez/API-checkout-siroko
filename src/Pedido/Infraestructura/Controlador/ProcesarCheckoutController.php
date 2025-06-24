@@ -8,21 +8,28 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 
 class ProcesarCheckoutController extends AbstractController
 {
     public function __construct(
         private ProcesarCheckoutHandlerInterface $handler
     ) {}
-    #[Route('/checkout/{carritoId}', name: 'procesar_checkout', methods: ['POST'])]
-    public function __invoke(Request $request, string $carritoId): JsonResponse
+    #[Route('/checkout', name: 'procesar_checkout', methods: ['POST'])]
+    public function __invoke(Request $request): JsonResponse
     {
         try {
-            $command = new ProcesarCheckoutCommand($carritoId);
-            ($this->handler)($command);
+            $data = json_decode($request->getContent(), true);
+            $carritoId = $data['carritoId'] ?? null;
 
-            return new JsonResponse(['status' => 'Pedido generado correctamente'], JsonResponse::HTTP_CREATED);
+            if (!$carritoId) {
+                return new JsonResponse(['error' => 'carritoId requerido'], JsonResponse::HTTP_BAD_REQUEST);
+            }
+
+            $command = new ProcesarCheckoutCommand($carritoId);
+            
+            $pedidoId = ($this->handler)($command);
+            return new JsonResponse(['id' => $pedidoId->valor()], JsonResponse::HTTP_CREATED);
+
         } catch (\RuntimeException $e) {
             return new JsonResponse(['error' => $e->getMessage()], JsonResponse::HTTP_BAD_REQUEST);
         } catch (\Throwable $e) {

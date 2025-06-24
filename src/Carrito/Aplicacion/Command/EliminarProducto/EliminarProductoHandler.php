@@ -6,6 +6,9 @@ use App\Carrito\Dominio\CarritoId;
 use App\Carrito\Dominio\ProductoId;
 use App\Carrito\Dominio\RepositorioCarrito;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
+#[AsMessageHandler]
 final class EliminarProductoHandler
 {
     public function __construct(

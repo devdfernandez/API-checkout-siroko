@@ -19,15 +19,15 @@ class AnadirProductoController
     {
         $datos = json_decode($request->getContent(), true);
 
-        if (!isset($datos['productoId'], $datos['cantidad'])) {
-            return new JsonResponse(['error' => 'productoId y cantidad son obligatorios'], 400);
+        if (!isset($datos['productoId'], $datos['cantidad'], $datos['precio'])) {
+            return new JsonResponse(['error' => 'productoId, cantidad y precio son obligatorios'], 400);
         }
 
-        $command = new AnadirProductoCommand(
-            $carritoId,
-            $datos['productoId'],
-            (int)$datos['cantidad']
-        );
+        $productoId = $datos['productoId'];  
+        $cantidad = $datos['cantidad'];
+        $precio = $datos['precio'];
+
+        $command = new AnadirProductoCommand($carritoId, $productoId, $cantidad, $precio);
 
         $this->commandBus->dispatch($command);
 

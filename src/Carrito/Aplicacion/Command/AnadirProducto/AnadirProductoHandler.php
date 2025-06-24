@@ -5,7 +5,9 @@ use App\Carrito\Dominio\RepositorioCarrito;
 use App\Carrito\Dominio\CarritoId;
 use App\Carrito\Dominio\ProductoId;
 use App\Carrito\Dominio\ItemCarrito;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 class AnadirProductoHandler
 {
     private RepositorioCarrito $repositorioCarrito;
@@ -15,17 +17,24 @@ class AnadirProductoHandler
         $this->repositorioCarrito = $repositorioCarrito;
     }
 
-    public function handle(AnadirProductoCommand $command): void
+    public function __invoke(AnadirProductoCommand $command): void
     {
-        $carrito = $this->repositorioCarrito->buscarPorId(new CarritoId($command->carritoId));
+        $carritoId = new CarritoId($command->carritoId);
+        $carrito = $this->repositorioCarrito->buscarPorId($carritoId);
+
 
         if (!$carrito) {
-            throw new \RuntimeException('Carrito no encontrado');
+            // TEMPORAL para debug
+            throw new \RuntimeException("Carrito no encontrado: " . $carritoId->valor());
         }
 
         $productoId = new ProductoId($command->productoId);
         $cantidad = $command->cantidad;
-        $precio = $command->precio ?? 0;
+        
+        if (!is_numeric($command->precio)) {
+            throw new \InvalidArgumentException('Precio no válido');
+        }
+        $precio = (float) $command->precio;
 
         $item = new ItemCarrito($productoId, $cantidad, $precio);
 
