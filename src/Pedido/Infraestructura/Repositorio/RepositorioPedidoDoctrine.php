@@ -2,7 +2,9 @@
 
 namespace App\Pedido\Infraestructura\Repositorio;
 
-use App\Pedido\Dominio\Pedido as PedidoDominio;
+use App\Pedido\Dominio\Pedido;
+use App\Pedido\Dominio\PedidoId;
+use App\Pedido\Dominio\LineaPedido;
 use App\Pedido\Dominio\RepositorioPedido;
 use App\Pedido\Infraestructura\Persistencia\Doctrine\Pedido as PedidoDoctrine;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +15,7 @@ class RepositorioPedidoDoctrine implements RepositorioPedido
         private EntityManagerInterface $entityManager
     ) {}
 
-    public function guardar(PedidoDominio $pedido): void
+    public function guardar(Pedido $pedido): void
     {
         $doctrinePedido = new PedidoDoctrine(
             $pedido->id()->valor(),
@@ -26,6 +28,30 @@ class RepositorioPedidoDoctrine implements RepositorioPedido
         );
 
         $this->entityManager->persist($doctrinePedido);
+        dump($doctrinePedido->getLineas());
         $this->entityManager->flush();
+    }
+
+    public function buscarPorId(PedidoId $id): ?Pedido
+    {
+        /** @var PedidoDoctrine|null $pedidoEntity */
+        $pedidoEntity = $this->entityManager
+            ->getRepository(PedidoDoctrine::class)
+            ->find($id->valor());
+
+        if (!$pedidoEntity) {
+            return null;
+        }
+
+        $lineas = array_map(
+            fn(array $linea) => new LineaPedido(
+                $linea['productoId'],
+                $linea['cantidad'],
+                $linea['precio']
+            ),
+            $pedidoEntity->getLineas()
+        );
+
+        return new Pedido($id, $lineas);
     }
 }

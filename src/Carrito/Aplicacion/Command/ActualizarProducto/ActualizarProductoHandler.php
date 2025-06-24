@@ -5,7 +5,9 @@ namespace App\Carrito\Aplicacion\Command\ActualizarProducto;
 use App\Carrito\Dominio\RepositorioCarrito;
 use App\Carrito\Dominio\CarritoId;
 use App\Carrito\Dominio\ProductoId;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final class ActualizarProductoHandler
 {
     public function __construct(

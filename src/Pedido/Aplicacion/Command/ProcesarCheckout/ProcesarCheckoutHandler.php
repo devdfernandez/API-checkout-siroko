@@ -11,6 +11,9 @@ use App\Pedido\Dominio\RepositorioPedido;
 use App\Inventario\Dominio\GestorStock;
 use App\Pedido\Aplicacion\Command\ProcesarCheckout\ProcesarCheckoutHandlerInterface;
 
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+
+#[AsMessageHandler]
 class ProcesarCheckoutHandler implements ProcesarCheckoutHandlerInterface
 {
     public function __construct(

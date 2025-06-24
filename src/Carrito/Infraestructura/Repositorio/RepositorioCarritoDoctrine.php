@@ -20,6 +20,17 @@ class RepositorioCarritoDoctrine implements RepositorioCarrito
 
     public function guardar(Carrito $carrito): void
     {
+        // Verifica si ya existe el carrito en Doctrine para evitar colisión
+        $carritoExistente = $this->entityManager
+            ->getRepository(CarritoEntity::class)
+            ->find($carrito->id()->valor());
+
+        if ($carritoExistente) {
+            $this->entityManager->remove($carritoExistente);
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+        }
+
         $carritoEntity = new CarritoEntity($carrito->id()->valor());
 
         $itemsEntity = [];
@@ -29,7 +40,7 @@ class RepositorioCarritoDoctrine implements RepositorioCarrito
                 $itemDominio->cantidad(),
                 $itemDominio->precio()
             );
-            $itemEntity->setCarrito($carritoEntity); 
+            $itemEntity->setCarrito($carritoEntity);
             $itemsEntity[] = $itemEntity;
         }
 
