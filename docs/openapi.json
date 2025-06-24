@@ -1,0 +1,254 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Siroko Checkout API",
+        "description": "Documentación de la API de carrito y pedidos",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/carrito": {
+            "post": {
+                "tags": [
+                    "Carrito"
+                ],
+                "summary": "Crear un carrito",
+                "operationId": "a90931583800c53ea6d84d9d4efc40cd",
+                "responses": {
+                    "201": {
+                        "description": "Carrito creado"
+                    }
+                }
+            }
+        },
+        "/carrito/{carritoId}/producto": {
+            "put": {
+                "tags": [
+                    "Carrito"
+                ],
+                "summary": "Actualizar producto del carrito",
+                "operationId": "429e6a959ae4302a0de0a05bc69ce3d6",
+                "parameters": [
+                    {
+                        "name": "carritoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "productoId",
+                                    "cantidad"
+                                ],
+                                "properties": {
+                                    "productoId": {
+                                        "type": "string"
+                                    },
+                                    "cantidad": {
+                                        "type": "integer"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto actualizado correctamente"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Carrito"
+                ],
+                "summary": "Añadir producto al carrito",
+                "operationId": "64acb1b9a9ab462188b5721023d290af",
+                "parameters": [
+                    {
+                        "name": "carritoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "productoId",
+                                    "cantidad"
+                                ],
+                                "properties": {
+                                    "productoId": {
+                                        "type": "string"
+                                    },
+                                    "cantidad": {
+                                        "type": "integer"
+                                    },
+                                    "precio": {
+                                        "type": "number",
+                                        "format": "float"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto añadido correctamente"
+                    },
+                    "400": {
+                        "description": "Carrito no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Carrito"
+                ],
+                "summary": "Eliminar producto del carrito",
+                "operationId": "2caa9bbcffecc5bb6f0bc1a5ea389384",
+                "parameters": [
+                    {
+                        "name": "carritoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "productoId"
+                                ],
+                                "properties": {
+                                    "productoId": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto eliminado del carrito"
+                    }
+                }
+            }
+        },
+        "/carrito/{carritoId}": {
+            "get": {
+                "tags": [
+                    "Carrito"
+                ],
+                "summary": "Consultar carrito",
+                "operationId": "bde122a6d215b7d8fee1b526f80f3b43",
+                "parameters": [
+                    {
+                        "name": "carritoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contenido del carrito"
+                    }
+                }
+            }
+        },
+        "/checkout/{carritoId}": {
+            "post": {
+                "tags": [
+                    "Pedido"
+                ],
+                "summary": "Procesa el carrito y genera un pedido",
+                "operationId": "ae357e466916095b46b239446f46cbab",
+                "parameters": [
+                    {
+                        "name": "carritoId",
+                        "in": "path",
+                        "description": "ID del carrito",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Pedido generado correctamente"
+                    },
+                    "400": {
+                        "description": "Carrito vacío o no encontrado"
+                    }
+                }
+            }
+        },
+        "/pedido/{pedidoId}": {
+            "get": {
+                "tags": [
+                    "Pedido"
+                ],
+                "summary": "Consultar pedido",
+                "operationId": "f9288a46097e7696fdab48aa9e1d28b6",
+                "parameters": [
+                    {
+                        "name": "pedidoId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pedido encontrado"
+                    },
+                    "404": {
+                        "description": "Pedido no encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Carrito",
+            "description": "Operaciones relacionadas con el carrito"
+        },
+        {
+            "name": "Pedido",
+            "description": "Operaciones relacionadas con pedidos"
+        }
+    ]
+}
