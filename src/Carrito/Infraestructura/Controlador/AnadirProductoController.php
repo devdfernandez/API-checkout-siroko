@@ -7,16 +7,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 
-#[AsController]
 class AnadirProductoController
 {
     public function __construct(
         private MessageBusInterface $commandBus
     ) {}
 
-    #[Route('/api/carrito/{carritoId}/producto', name: 'carrito_anadir_producto', methods: ['POST'])]
+    #[Route('/carrito/{carritoId}/producto', name: 'carrito_anadir_producto', methods: ['POST'])]
     public function __invoke(Request $request, string $carritoId): JsonResponse
     {
         $datos = json_decode($request->getContent(), true);

@@ -7,16 +7,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpKernel\Attribute\AsController;
 
-#[AsController]
 class EliminarProductoController
 {
     public function __construct(
         private MessageBusInterface $commandBus
     ) {}
 
-    #[Route('/api/carrito/{carritoId}/producto/{productoId}', name: 'carrito_eliminar_producto', methods: ['DELETE'])]
+    #[Route('/carrito/{carritoId}/producto/{productoId}', name: 'carrito_eliminar_producto', methods: ['DELETE'])]
     public function __invoke(Request $request, string $carritoId, string $productoId): JsonResponse
     {
         $command = new EliminarProductoCommand(
