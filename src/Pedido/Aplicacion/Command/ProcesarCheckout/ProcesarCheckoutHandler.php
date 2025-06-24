@@ -8,6 +8,7 @@ use App\Pedido\Dominio\Pedido;
 use App\Pedido\Dominio\PedidoId;
 use App\Pedido\Dominio\LineaPedido;
 use App\Pedido\Dominio\RepositorioPedido;
+use App\Pedido\Aplicacion\Command\ProcesarCheckout\ProcesarCheckoutHandlerInterface;
 
 class ProcesarCheckoutHandler implements ProcesarCheckoutHandlerInterface
 {
@@ -16,7 +17,7 @@ class ProcesarCheckoutHandler implements ProcesarCheckoutHandlerInterface
         private RepositorioPedido $repositorioPedido
     ) {}
 
-    public function __invoke(ProcesarCheckoutCommand $command): void
+    public function __invoke(ProcesarCheckoutCommand $command): PedidoId
     {
         $carritoId = new CarritoId($command->carritoId);
         $carrito = $this->repositorioCarrito->buscarPorId($carritoId);
@@ -38,8 +39,11 @@ class ProcesarCheckoutHandler implements ProcesarCheckoutHandlerInterface
             );
         }
 
-        $pedido = new Pedido(PedidoId::generar(), $lineas);
+        $pedidoId = PedidoId::generar();
+        $pedido = new Pedido($pedidoId, $lineas);
 
         $this->repositorioPedido->guardar($pedido);
+
+        return $pedidoId;
     }
 }
