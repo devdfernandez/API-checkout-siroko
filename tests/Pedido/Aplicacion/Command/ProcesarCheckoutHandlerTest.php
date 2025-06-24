@@ -11,6 +11,7 @@ use App\Carrito\Dominio\ProductoId;
 use App\Carrito\Dominio\Carrito;
 use App\Carrito\Dominio\CarritoId;
 use App\Carrito\Dominio\ItemCarrito;
+use App\Inventario\Dominio\GestorStock;
 use PHPUnit\Framework\TestCase;
 
 class ProcesarCheckoutHandlerTest extends TestCase
@@ -38,7 +39,10 @@ class ProcesarCheckoutHandlerTest extends TestCase
                 return true;
             }));
 
-        $handler = new ProcesarCheckoutHandler($repositorioCarrito, $repositorioPedido);
+        $gestorStock = $this->createMock(GestorStock::class);
+        $gestorStock->expects($this->exactly(2))->method('reservarStock');
+
+        $handler = new ProcesarCheckoutHandler($repositorioCarrito, $repositorioPedido, $gestorStock);
 
         $command = new ProcesarCheckoutCommand('c1');
         $handler->__invoke($command);
