@@ -70,4 +70,3 @@ class RepositorioCarritoDoctrineTest extends KernelTestCase
         $this->assertContains('producto-ghi-789', $productoIds);
     }
 }
-?>

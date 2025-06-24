@@ -13,5 +13,3 @@ final class ActualizarProductoCommand
         public readonly int $nuevaCantidad
     ) {}
 }
-
-?>

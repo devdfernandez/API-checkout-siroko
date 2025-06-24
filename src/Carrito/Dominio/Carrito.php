@@ -81,5 +81,3 @@ class Carrito
         return array_reduce($this->items, fn($carry, $item) => $carry + $item->total(), 0);
     }
 }
-
-?>

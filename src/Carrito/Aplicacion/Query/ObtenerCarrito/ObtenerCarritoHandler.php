@@ -18,5 +18,3 @@ class ObtenerCarritoHandler
         return $this->repositorioCarrito->buscarPorId(new CarritoId($query->carritoId));
     }
 }
-
-?>

@@ -34,5 +34,3 @@ class AnadirProductoHandler
         $this->repositorioCarrito->guardar($carrito);
     }
 }
-
-?>

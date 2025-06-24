@@ -10,5 +10,3 @@ class ObtenerCarritoQuery
         $this->carritoId = $carritoId;
     }
 }
-
-?>

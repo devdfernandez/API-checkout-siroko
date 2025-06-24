@@ -25,5 +25,3 @@ class ProductoId
         return $this->valor === $otro->valor;
     }
 }
-
-?>

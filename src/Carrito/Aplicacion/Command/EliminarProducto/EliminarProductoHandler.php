@@ -28,5 +28,3 @@ final class EliminarProductoHandler
         $this->repositorioCarrito->guardar($carrito);
     }
 }
-
-?>
