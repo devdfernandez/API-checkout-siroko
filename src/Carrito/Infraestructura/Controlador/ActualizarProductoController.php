@@ -34,4 +34,3 @@ class ActualizarProductoController
         return new JsonResponse(null, 204); // No Content
     }
 }
-?>

@@ -38,5 +38,3 @@ class ItemCarrito
         return $this->cantidad * $this->precio;
     }
 }
-
-?>

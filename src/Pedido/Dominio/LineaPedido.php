@@ -37,5 +37,3 @@ class LineaPedido
         return $this->cantidad * $this->precio;
     }
 }
-
-?>

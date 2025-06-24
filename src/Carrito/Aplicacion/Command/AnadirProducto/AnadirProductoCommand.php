@@ -14,5 +14,3 @@ class AnadirProductoCommand
         $this->cantidad = $cantidad;
     }
 }
-
-?>

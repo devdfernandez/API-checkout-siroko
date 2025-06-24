@@ -8,5 +8,3 @@ interface RepositorioCarrito
 
     public function buscarPorId(CarritoId $id): ?Carrito;
 }
-
-?>

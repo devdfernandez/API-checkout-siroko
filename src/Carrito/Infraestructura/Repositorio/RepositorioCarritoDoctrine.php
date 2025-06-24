@@ -29,7 +29,7 @@ class RepositorioCarritoDoctrine implements RepositorioCarrito
                 $itemDominio->cantidad(),
                 $itemDominio->precio()
             );
-            $itemEntity->setCarrito($carritoEntity); // Relación establecida
+            $itemEntity->setCarrito($carritoEntity); 
             $itemsEntity[] = $itemEntity;
         }
 

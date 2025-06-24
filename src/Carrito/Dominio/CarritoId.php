@@ -22,5 +22,3 @@ class CarritoId
         return $this->valor === $otro->valor;
     }
 }
-
-?>

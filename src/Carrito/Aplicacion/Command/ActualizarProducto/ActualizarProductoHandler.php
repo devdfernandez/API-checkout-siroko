@@ -28,5 +28,3 @@ final class ActualizarProductoHandler
         $this->repositorioCarrito->guardar($carrito);
     }
 }
-
-?>
