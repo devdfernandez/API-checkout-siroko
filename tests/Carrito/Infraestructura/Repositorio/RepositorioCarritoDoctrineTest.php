@@ -1,5 +1,5 @@
 <?php
-namespace App\Tests\Carrito\Infraestructura;
+namespace App\Tests\Carrito\Infraestructura\Repositorio;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Doctrine\ORM\EntityManagerInterface;
