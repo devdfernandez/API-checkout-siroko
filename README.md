@@ -14,6 +14,14 @@ Este proyecto implementa una API desacoplada para la gestión de la cesta de la 
 
 ---
 
+## 🧾 Documentación Swagger
+
+Puedes acceder a la documentación de la API en formato OpenAPI a través de Swagger UI:
+
+👉 https://devdfernandez.github.io/API-checkout-siroko/
+
+---
+
 ## 🧱 Modelado del Dominio
 
 ### 📦 Módulo `Carrito`
@@ -65,3 +73,31 @@ Este proyecto implementa una API desacoplada para la gestión de la cesta de la 
 - Symfony Messenger
 - Arquitectura Hexagonal + DDD
 - CQRS
+
+---
+
+## ⚙️ Montar el entorno
+
+```bash
+docker-compose up -d --build
+docker exec -it siroko-app bash -> Si el contenedor se llama distinto (`api-checkout-siroko-php`, por ejemplo), sustituye `siroko-app` por el nombre real
+composer install
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+```
+Puedes consultar su base de datos desde la interfaz web:
+
+🌐 http://localhost:8081
+
+Use las credenciales de docker-compose.yml para acceder
+
+---
+
+## ✅ Ejecutar los tests
+
+Este proyecto incluye pruebas unitarias, de integración y un test E2E que simula el flujo completo del carrito y checkout.
+
+### 🚀 Ejecutar el test E2E principal
+
+```bash
+php bin/phpunit tests/e2e/CarritoPedidoE2ETest.php

@@ -1,20 +1,23 @@
+version: '3.8'
+
 services:
-  php:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: siroko_php
+    container_name: siroko-app
+    working_dir: /var/www
     volumes:
       - .:/var/www
-    working_dir: /var/www
     depends_on:
       - db
     ports:
-      - "9000:9000"
+      - "8000:8000"
+    command: php -S 0.0.0.0:8000 -t public
 
   db:
     image: postgres:14
-    container_name: siroko_postgres
+    container_name: siroko-postgres
     environment:
       POSTGRES_USER: siroko
       POSTGRES_PASSWORD: siroko
@@ -24,7 +27,7 @@ services:
 
   adminer:
     image: adminer
-    container_name: siroko_adminer
+    container_name: siroko-adminer
     restart: always
     ports:
       - "8081:8080"
